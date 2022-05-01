@@ -10,7 +10,7 @@ abstract class User extends Thread implements Runnable {
     private final HashSet<SecretKey> keys = new HashSet<>();
     private List<String> message = new ArrayList<>();
     private List<String> fixedMessage = new ArrayList<>();
-    private String name;
+    private String userName;
 
 
     public void run() {
@@ -32,7 +32,7 @@ abstract class User extends Thread implements Runnable {
             message = this.message.toString();
         }
         // message box user -> message;
-        for (String word : this.fixedMessage) {
+        for (String word : this.message) {
             Box boxab = new Box(user, word, sk);
 
         }
@@ -61,12 +61,19 @@ abstract class User extends Thread implements Runnable {
             String s2 = this.message.get(i+1);
             i++;
 
-            fixedMessage.add(s1+ s2);
-            System.out.println(s1+s2);
+            fixedMessage.add(s1+ " " + s2);
         }
     }
 
     public List<String> getFixedMessage() {
         return fixedMessage;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

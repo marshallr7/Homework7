@@ -49,7 +49,6 @@ public class Cryptography {
 
     public static String encrypt(List<String> message, SecretKey secretKey) throws Exception {
         StringBuilder s = new StringBuilder();
-
         for (String w : message) {
             s.append(encrypt(w, secretKey)).append(" ");
         }
