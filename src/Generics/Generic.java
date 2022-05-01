@@ -1,6 +1,5 @@
 package Generics;
 
-import java.util.List;
 
 public class Generic<T extends Number> {
     T[] objects;

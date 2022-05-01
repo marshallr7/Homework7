@@ -46,6 +46,7 @@ public class Cryptography {
 
         return s.toString();
     }
+
     public static String encrypt(List<String> message, SecretKey secretKey) throws Exception {
         StringBuilder s = new StringBuilder();
 

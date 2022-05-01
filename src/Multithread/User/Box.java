@@ -1,35 +1,44 @@
 package Multithread.User;
 
 import javax.crypto.SecretKey;
-import javax.swing.*;
-import java.util.List;
 
-public class Box {
+public class Box extends Message {
 
-    public synchronized void get(List<String> message, User user, SecretKey sk) throws Exception {
-        StringBuilder s1 = new StringBuilder();
-        StringBuilder s2 = new StringBuilder();
+    int n;
+    boolean valueSet = false;
 
-        for (int i = 0; i < message.size(); i++) {
-            if (i % 2 == 0) {
-                s1.append(message.get(i));
-            } else {
-                s2.append(message.get(i));
-            }
-        }
-
-            JOptionPane.showMessageDialog(null,
-                    Cryptography.decrypt(s1.toString(), sk),
-                    user.getName(),
-                    JOptionPane.INFORMATION_MESSAGE);
-
-        JOptionPane.showMessageDialog(null,
-                Cryptography.decrypt(s2.toString(), sk),
-                user.getName(),
-                JOptionPane.INFORMATION_MESSAGE);
+    public Box(User user, String message, SecretKey sk) throws Exception {
+        super.display(user, message, sk);
     }
 
-    public synchronized void put() {
+    synchronized int get() {
+        while(!valueSet)
+            try {
+                System.out.println("Wait Got: ");
+                wait();
 
+            } catch(InterruptedException e) {
+                System.out.println("InterruptedException caught");
+            }
+
+        System.out.println("Got: " + n);
+        valueSet = false;
+        notify();
+        return n;
+    }
+
+    synchronized void put(int n) {
+        while(valueSet)
+            try {
+                System.out.println("Wait Put: ");
+                wait();
+            } catch(InterruptedException e) {
+                System.out.println("InterruptedException caught");
+            }
+
+        this.n = n;
+        valueSet = true;
+        System.out.println("Put: " + n);
+        notify();
     }
 }

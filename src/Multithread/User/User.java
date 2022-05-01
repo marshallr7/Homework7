@@ -9,22 +9,19 @@ abstract class User extends Thread implements Runnable {
 
     private final HashSet<SecretKey> keys = new HashSet<>();
     private List<String> message = new ArrayList<>();
+    private List<String> fixedMessage = new ArrayList<>();
     private String name;
 
 
-    private String threadName;
     public void run() {
-        System.out.println("Running " +  threadName );
         try {
-            for(int i = 4; i > 0; i--) {
-                System.out.println("Thread: " + threadName + ", " + i);
-                // Let the thread sleep for a while.
+            for(int i = 2; i > 0; i--) {
+
                 Thread.sleep(50);
             }
         } catch (InterruptedException e) {
-            System.out.println("Thread " +  threadName + " interrupted.");
+            System.out.println("Thread " + " interrupted.");
         }
-        System.out.println("Thread " +  threadName + " exiting.");
     }
 
     public void message(User user, SecretKey sk) throws Exception {
@@ -35,6 +32,11 @@ abstract class User extends Thread implements Runnable {
             message = this.message.toString();
         }
         // message box user -> message;
+        for (String word : this.fixedMessage) {
+            Box boxab = new Box(user, word, sk);
+
+        }
+
     }
 
     public void setMessage(String message) {
@@ -53,4 +55,18 @@ abstract class User extends Thread implements Runnable {
         return this.keys;
     }
 
+    public void fixArray() {
+        for (int i = 0; i < this.message.size()-1; i++) {
+            String s1 = this.message.get(i);
+            String s2 = this.message.get(i+1);
+            i++;
+
+            fixedMessage.add(s1+ s2);
+            System.out.println(s1+s2);
+        }
+    }
+
+    public List<String> getFixedMessage() {
+        return fixedMessage;
+    }
 }

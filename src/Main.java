@@ -10,9 +10,9 @@ public class Main {
         Bob bob = new Bob();
         Chase chase = new Chase();
         Alice alice = new Alice("We have a meeting tomorrow at 8 am", bob);
-        Alice alice1 = new Alice("Tomorrow meeting will be held in room 100", chase);
-        alice.start();
-        alice1.start();
+//        Alice alice1 = new Alice("Tomorrow meeting will be held in room 100", chase);
+//        alice.start();
+//        alice1.start();
 
         Integer[] arr = {100, 1000};
         Generic<Integer> g = new Generic<>(arr);

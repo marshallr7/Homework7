@@ -10,11 +10,13 @@ public class Alice extends User {
         user.addKey(sk);
 
         super.setMessage(message);
-        super.setMessage(Cryptography.encrypt(super.getMessage(), sk));
 
-        Box boxAB = new Box();
-//        boxAB.put(super.getMessage());
-        boxAB.get(super.getMessage(), user, sk);
+        super.fixArray();
+        System.out.println(super.getFixedMessage());
+        super.setMessage(Cryptography.encrypt(super.getFixedMessage(), sk));
+        System.out.println(super.getFixedMessage());
+
+        super.message(user, sk);
 
         super.run();
     }
